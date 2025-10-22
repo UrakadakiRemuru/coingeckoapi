@@ -1,8 +1,9 @@
 import asyncio
 import functools
+from typing import Type
 
 
-def retry(attempts: int = 5, attempt_time: int = 5, exceptions: tuple[Exception, ...] = (Exception,)):
+def retry(attempts: int = 5, attempt_time: int = 5, exceptions: tuple[Type[Exception], ...] = (Exception,)):
     '''
     Осуществляет повтор заданное число раз, через заданный интервал времени в случае возникновения исключений. Если все попытки исчерпаны
     поднимает случившееся исключение.

@@ -1,7 +1,6 @@
 import asyncio
 import os
 from asyncio import as_completed
-from datetime import date
 from typing import Type
 
 from aiohttp import ClientResponseError, ClientConnectionError, ServerTimeoutError
@@ -120,12 +119,16 @@ class CoinGeckoProvider(AbstractProvider):
 
         return list(result)
 
-    def _parse_genesis_date(self, genesis_date: str | None) -> date | None:
+    @staticmethod
+    def _parse_genesis_date(genesis_date: str | None) -> str | None:
         return genesis_date if genesis_date else None
 
-    def _parse_total_volume(self, total_volume: dict[str, dict[str, int]]) -> int | None:
-        if total_volume.get('total_volume') and total_volume['total_volume'].get('usd'):
-            return total_volume['total_volume']['usd']
+    @staticmethod
+    def _parse_total_volume(market_data: dict[str, dict[str, int]] | None) -> int | None:
+        if market_data is None:
+            return None
+        if market_data.get('total_volume') and market_data['total_volume'].get('usd'):
+            return market_data['total_volume']['usd']
         return None
 
 

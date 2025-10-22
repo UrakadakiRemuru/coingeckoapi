@@ -7,7 +7,7 @@ class CoinData(TypedDict):
     total_volume: int
     networks: list[str]
     exchanges: list[str]
-    genesis_date: date
+    genesis_date: str
 
 class RenderedCoinData(TypedDict):
     name: str
@@ -17,4 +17,4 @@ class RenderedCoinData(TypedDict):
     kucoin: bool
     networks: list[str]
     exchanges: list[str]
-    genesis_date: date
+    genesis_date: str
